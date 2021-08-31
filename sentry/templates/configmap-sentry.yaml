@@ -69,6 +69,7 @@ data:
     slack.signing-secret: {{ .Values.slack.signingSecret | quote }}
     {{ end }}
 
+    {{- if .Values.sentry.includeRedisConfig }}
     #########
     # Redis #
     #########
@@ -81,6 +82,9 @@ data:
             {{- if $redisPass }}
             password: {{ $redisPass | quote }}
             {{- end }}
+    {{- else }}
+    redisPassword: {{ $redisPass | quote }}
+    {{ end }}
 
     ################
     # File storage #
